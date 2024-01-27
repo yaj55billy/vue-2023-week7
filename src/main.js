@@ -6,8 +6,6 @@ import { createPinia } from 'pinia';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
-import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
 import { Field, Form, ErrorMessage, defineRule, configure } from 'vee-validate';
 import * as AllRules from '@vee-validate/rules';
 
@@ -28,6 +26,16 @@ setLocale('zh_TW');
 
 const pinia = createPinia();
 const app = createApp(App);
+app.directive('thousands', {
+  mounted(el, binding) {
+    const number = binding.value;
+    el.innerText = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  updated(el, binding) {
+    const number = binding.value;
+    el.innerText = number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+});
 app.component('Loading', Loading);
 app.component('VField', Field);
 app.component('VForm', Form);
