@@ -44,6 +44,18 @@ export const apiEditAdminCoupon = (data, id) =>
 export const apiDeleteAdminCoupon = (id) =>
   apiAdminBase.delete(`/api/${VITE_API_PATH}/admin/coupon/${id}`);
 
+// 後台取得訂單列表
+export const apiGetAdminOrders = (page = 1) =>
+  apiAdminBase.get(`/api/${VITE_API_PATH}/admin/orders?page=${page}`);
+
+// 後台編輯訂單
+export const apiEditAdminOrder = (data, id) =>
+  apiAdminBase.put(`/api/${VITE_API_PATH}/admin/order/${id}`, data);
+
+// 後台刪除訂單
+export const apiDeleteAdminOrder = (id) =>
+  apiAdminBase.delete(`/api/${VITE_API_PATH}/admin/order/${id}`);
+
 // 前台
 export const apiBase = axios.create({
   baseURL: `${VITE_API_BASE}`,

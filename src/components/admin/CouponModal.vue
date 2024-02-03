@@ -5,11 +5,8 @@ const props = defineProps({
 });
 const { tempCoupon } = toRefs(props);
 
-// const couponDate = ref('');
-
 const emit = defineEmits(['updateCoupon']);
 const handleUpdateClick = () => {
-  // emit('updateCoupon', couponDate.value);
   emit('updateCoupon');
 };
 </script>
@@ -67,7 +64,7 @@ const handleUpdateClick = () => {
               <label for="couponDeadline">到期日</label>
               <input
                 id="couponDeadline"
-                v-model="tempCoupon.xxx_date"
+                v-model="tempCoupon.due_date_normal"
                 type="date"
                 class="form-control"
               />

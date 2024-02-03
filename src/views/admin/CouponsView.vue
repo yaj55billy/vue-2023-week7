@@ -25,7 +25,7 @@ const tempCoupon = ref({
   percent: 0,
   due_date: '',
   code: '',
-  xxx_date: '',
+  due_date_normal: '',
 });
 const isNew = ref(true);
 
@@ -35,14 +35,6 @@ const delCouponModalRef = ref(null);
 
 const formatToTimestamp = (date) => {
   return Math.floor(new Date(date).getTime() / 1000);
-};
-const formatToDate = (timestamp) => {
-  const date = new Date(timestamp * 1000);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-
-  return `${year}-${month}-${day}`;
 };
 
 const getCoupons = (page = 1) => {
@@ -68,7 +60,7 @@ const openCouponModal = (status, coupon) => {
       percent: 0,
       due_date: '',
       code: '',
-      xxx_date: '',
+      due_date_normal: '',
     };
     couponModalHandle.show();
   } else {
@@ -79,7 +71,7 @@ const openCouponModal = (status, coupon) => {
 };
 
 const updateCoupon = () => {
-  tempCoupon.value.due_date = formatToTimestamp(tempCoupon.value.xxx_date);
+  tempCoupon.value.due_date = formatToTimestamp(tempCoupon.value.due_date_normal);
   const data = { data: tempCoupon.value };
   const tempCouponId = tempCoupon.value.id;
   if (isNew.value === true) {
@@ -150,7 +142,7 @@ onMounted(() => {
         <tr v-for="coupon in coupons" :key="coupon.id">
           <td data-th="名稱">{{ coupon.title }}</td>
           <td data-th="折扣百分比">{{ coupon.percent }}</td>
-          <td data-th="到期日">{{ formatToDate(coupon.xxx_date) }}</td>
+          <td data-th="到期日">{{ coupon.due_date_normal }}</td>
           <td data-th="是否啟用">
             <span v-if="coupon.is_enabled" class="text-success">啟用</span>
             <span v-else>未啟用</span>
@@ -176,7 +168,7 @@ onMounted(() => {
         </tr>
       </tbody>
     </table>
-    <Pagination :pagination="pagination" @update="getCoupons"></Pagination>
+    <Pagination :pagination="pagination" @updatePage="getCoupons"></Pagination>
 
     <div
       ref="couponModalRef"

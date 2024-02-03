@@ -8,6 +8,7 @@ import LoginView from '../views/LoginView.vue';
 import DashboardView from '../views/admin/DashboardView.vue';
 import adminProductsView from '../views/admin/ProductsView.vue';
 import adminCouponsView from '../views/admin/CouponsView.vue';
+import adminOrdersView from '../views/admin/OrdersView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
 
 const router = createRouter({
@@ -59,6 +60,11 @@ const router = createRouter({
           path: 'coupons',
           name: 'adminCoupons',
           component: adminCouponsView,
+        },
+        {
+          path: 'orders',
+          name: 'adminOrders',
+          component: adminOrdersView,
         },
       ],
     },

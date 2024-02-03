@@ -70,6 +70,9 @@ onMounted(() => {
           <RouterLink to="/admin/coupons" class="nav-link py-2 font-weight-bold">
             優惠券列表
           </RouterLink>
+          <RouterLink to="/admin/orders" class="nav-link py-2 font-weight-bold">
+            訂單列表
+          </RouterLink>
         </div>
       </nav>
 
