@@ -56,6 +56,10 @@ export const apiEditAdminOrder = (data, id) =>
 export const apiDeleteAdminOrder = (id) =>
   apiAdminBase.delete(`/api/${VITE_API_PATH}/admin/order/${id}`);
 
+// 後台上傳圖片
+export const apiUploadAdminImage = (fileData) =>
+  apiAdminBase.post(`/api/${VITE_API_PATH}/admin/upload`, fileData);
+
 // 前台
 export const apiBase = axios.create({
   baseURL: `${VITE_API_BASE}`,

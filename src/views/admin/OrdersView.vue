@@ -79,7 +79,7 @@ onMounted(() => {
 <template>
   <div class="mt-4">
     <h2>訂單列表</h2>
-    <table class="table table-admin table-rwd mt-4">
+    <table class="table-admin table-rwd mt-3">
       <thead>
         <tr>
           <th>下單時間</th>

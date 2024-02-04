@@ -1,16 +1,25 @@
 <script setup>
-import { toRefs } from 'vue';
+import { toRefs, ref } from 'vue';
 const props = defineProps({
   tempProduct: Object,
+  fileUpLoading: Boolean,
 });
-const { tempProduct } = toRefs(props);
-const emit = defineEmits(['updateProduct', 'addInitImages']);
+const { tempProduct, fileUpLoading } = toRefs(props);
+const emit = defineEmits(['updateProduct', 'addInitImages', 'uploadFile']);
 const handleUpdateClick = () => {
   emit('updateProduct');
 };
 const handleAddImageClick = () => {
   emit('addInitImages');
 };
+const handleUpload = () => {
+  emit('uploadFile');
+};
+const customFileRef = ref(null);
+
+defineExpose({
+  customFileRef,
+});
 </script>
 
 <template>
@@ -33,6 +42,24 @@ const handleAddImageClick = () => {
           <div class="col-sm-4 mb-4">
             <div>
               <h6>主要圖片</h6>
+              <div class="form-group mb-3">
+                <label for="customFile" class="form-label">上傳圖片</label>
+                <div
+                  class="spinner-border spinner-border-sm text-primary"
+                  role="status"
+                  v-if="fileUpLoading"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <input
+                  type="file"
+                  name="file-to-upload"
+                  class="form-control h-auto"
+                  id="customFile"
+                  ref="customFileRef"
+                  @change="handleUpload"
+                />
+              </div>
               <div class="mb-3">
                 <label for="imageUrl" class="form-label">輸入圖片網址</label>
                 <input
@@ -168,7 +195,7 @@ const handleAddImageClick = () => {
                 />
               </div>
               <div class="form-group mb-3 col-md-6">
-                <label for="datetimeEnd">課程開始時間</label>
+                <label for="datetimeEnd">課程結束時間</label>
                 <input
                   id="datetimeEnd"
                   v-model="tempProduct.datetimeEnd"

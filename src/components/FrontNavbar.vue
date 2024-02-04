@@ -30,7 +30,7 @@ onMounted(() => {
           <span class="badge text-bg-secondary">{{ cartStore.cartsLength }}</span>
         </RouterLink>
         <RouterLink to="/login" class="nav-item nav-link">登入頁</RouterLink>
-        <RouterLink to="/admin" class="nav-item nav-link">後台頁面</RouterLink>
+        <RouterLink to="/admin/products" class="nav-item nav-link">後台頁面</RouterLink>
       </div>
     </div>
   </nav>

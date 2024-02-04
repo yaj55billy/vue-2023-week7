@@ -10,6 +10,7 @@ import {
   apiAddAdminProduct,
   apiEditAdminProduct,
   apiDeleteAdminProduct,
+  apiUploadAdminImage,
 } from '@/utils/api.js';
 import { SwalHandle } from '@/utils/sweetalert2.js';
 
@@ -24,6 +25,7 @@ const pagination = ref({});
 const productModalRef = ref(null);
 const delProductModalRef = ref(null);
 const isNew = ref(true);
+const fileUpLoading = ref(false);
 
 const getProducts = (page = 1) => {
   loaderStore.changeIsLoading(true);
@@ -101,6 +103,31 @@ const addInitImages = () => {
   tempProduct.value.imagesUrl.push('');
 };
 
+const productModalChildRef = ref(null);
+
+// 上傳圖片
+const uploadFile = () => {
+  fileUpLoading.value = true;
+  const catchFile = productModalChildRef.value.customFileRef.files[0];
+  const fileData = new FormData();
+  fileData.append('file-to-upload', catchFile);
+
+  apiUploadAdminImage(fileData)
+    .then((res) => {
+      SwalHandle.showSuccessMsg('圖片上傳成功～');
+      tempProduct.value = {
+        ...tempProduct.value,
+        imageUrl: res.data.imageUrl,
+      };
+      productModalChildRef.value.customFileRef.value = '';
+      fileUpLoading.value = false;
+    })
+    .catch((error) => {
+      SwalHandle.showErrorMsg('檔案上傳失敗，請再檢查是不是檔案大小超過 3MB');
+      fileUpLoading.value = false;
+    });
+};
+
 onMounted(() => {
   getProducts();
   productModalHandle = new bootstrap.Modal(productModalRef.value, {});
@@ -166,9 +193,12 @@ onMounted(() => {
     aria-hidden="true"
   >
     <ProductModal
+      ref="productModalChildRef"
       :tempProduct="tempProduct"
+      :fileUpLoading="fileUpLoading"
       @updateProduct="updateProduct"
       @addInitImages="addInitImages"
+      @uploadFile="uploadFile"
     />
   </div>
   <div
